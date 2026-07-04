@@ -33,7 +33,7 @@ To automate IP allocation and prevent human error, a robust DHCP infrastructure 
 * **Access Control:** Strict firewall policies and ACLs are implemented across Cisco ASA and Fortinet (FortiGate) devices.
 
 ## Repository Structure & Download 📂
-* [📥 Download Full GNS3 Project - 500MB](حط_لينك_جوجل_درايف_هنا) -> Click here to download the complete simulation project environment with all embedded device images.
+* [📥 Download Full GNS3 Project - 500MB](https://drive.google.com/drive/folders/1cu1PZuXTsmGit4i3EAwPg-3f7XlGirFZ?usp=sharing) -> Click here to download the complete simulation project environment with all embedded device images.
 * `/Topologies`: Contains high-resolution diagrams of the multi-site network.
 * `/Configurations`: Backup configuration files for Cisco routers/switches, Cisco ASA, and FortiGate firewalls.
 * `/Monitoring_and_Security`: Scripts and configuration snippets for Zabbix, Splunk, Wazuh, and the Telegram webhook integration.
