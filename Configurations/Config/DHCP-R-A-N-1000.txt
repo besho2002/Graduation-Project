@@ -1,0 +1,88 @@
+     ###################alpin dhcp server ##############
+
+
+alpine
+
+udhcpc -i eth0
+apk update
+apk add dhcp
+
+mkdir -p /etc/dhcp
+touch /var/lib/dhcp/dhcpd.leases
+
+
+printf "auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+    address 172.16.30.226
+    netmask 255.255.255.224
+    gateway 172.16.30.225\n" > /etc/network/interfaces
+
+# 5. إعادة تشغيل الشبكة لتفعيل الإعدادات الجديدة
+rc-service networking restart
+
+# 6. كتابة ملف الـ Pools لجميع الفيلانات (Copy-Paste للكتلة دي كلها)
+printf "default-lease-time 600;
+max-lease-time 7200;
+authoritative;
+
+#for DNS
+option domain-name-servers 8.8.8.8, 1.1.1.1;
+
+subnet 172.16.30.0 netmask 255.255.255.224 { range 172.16.30.2 172.16.30.30; option routers 172.16.30.1; }
+subnet 172.16.30.32 netmask 255.255.255.224 { range 172.16.30.34 172.16.30.62; option routers 172.16.30.33; }
+subnet 172.16.30.64 netmask 255.255.255.224 { range 172.16.30.66 172.16.30.94; option routers 172.16.30.65; }
+subnet 172.16.30.96 netmask 255.255.255.224 { range 172.16.30.98 172.16.30.126; option routers 172.16.30.97; }
+subnet 172.16.30.128 netmask 255.255.255.224 { range 172.16.30.130 172.16.30.158; option routers 172.16.30.129; }
+subnet 172.16.30.160 netmask 255.255.255.224 { range 172.16.30.162 172.16.30.190; option routers 172.16.30.161; }
+subnet 172.16.30.192 netmask 255.255.255.224 { range 172.16.30.194 172.16.30.222; option routers 172.16.30.193; }
+subnet 172.16.30.224 netmask 255.255.255.224 { range 172.16.30.227 172.16.30.250; option routers 172.16.30.225; }" > /etc/dhcp/dhcpd.conf
+
+
+
+mkdir -p /run/dhcp
+rc-service dhcpd start
+rc-update add dhcpd default
+
+#add dns 
+# add in  /etc/udhcpd.conf
+
+
+start           172.16.30.227
+end             172.16.30.250
+interface       eth1
+opt     subnet  255.255.255.224
+opt     router  172.16.30.225
+opt     dns     8.8.8.8 1.1.1.1
+option  lease   600
+
+
+###################### If i needed################
+
+ps aux | grep dhcpd   ######show service
+cat /var/lib/dhcp/dhcpd.leases ####### show leased
+
+
+
+###############السيرفر يشتغل تلقاءي مع كل بوووت  #############
+
+rc-update add dhcpd
+rc-service dhcpd start
+
+
+
+
+########## if i want delete leased ip ###########33
+# وقف الخدمة الأول
+rc-service dhcpd stop
+
+# مسح محتوى ملف الـ Leases
+truncate -s 0 /var/lib/dhcp/dhcpd.leases
+
+# شغل الخدمة تاني
+rc-service dhcpd start

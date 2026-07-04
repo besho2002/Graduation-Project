@@ -1,0 +1,25 @@
+ACC(1-2-3)
+
+configure terminal
+interface range ethernet 0/0-3 , ethernet 1/0-3 , ethernet 2/0-3
+switchport port-security
+switchport port-security maximum 1
+switchport port-security violation shutdown
+switchport port-security mac-address sticky
+no shutdown
+exit
+
+
+DIS(1-2)
+configure terminal
+interface range ethernet 1/3, ethernet 2/0 - 3, ethernet 3/0 - 3
+shutdown
+description Administratively Down - Unused Port
+exit
+
+Core
+interface range ethernet 1/0 - 3, ethernet 2/0 - 3, ethernet 3/0 - 3
+  shutdown
+  description Administratively Down - Unused Port
+exit
+

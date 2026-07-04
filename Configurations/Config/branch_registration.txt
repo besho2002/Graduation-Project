@@ -1,0 +1,76 @@
+######################## R ###################
+
+interface f0/0
+no ip address
+exit
+
+
+interface g2/0
+no shutdown
+exit
+
+interface g2/0.120
+encapsulation dot1Q 120
+ip address 192.168.1.1 255.255.255.192
+no shutdown
+exit
+
+interface g2/0.130
+encapsulation dot1Q 130
+ip address 192.168.1.65 255.255.255.192
+no shutdown
+exit
+
+
+
+# Pool للموظفين
+ip dhcp pool REGISTRATION
+ network 192.168.1.0 255.255.255.192
+ default-router 192.168.1.1
+ dns-server 8.8.8.8
+
+# Pool للمحاسبين
+ip dhcp pool FINANCE
+ network 192.168.1.64 255.255.255.192
+ default-router 192.168.1.65
+ dns-server 8.8.8.8
+
+router ospf 1
+network 192.168.1.0 0.0.0.63 area 0
+network 192.168.64.0 0.0.0.63 area 0
+
+
+
+################## SW #################
+interface e0/0
+duplex full
+switchport Trunk encapsulation dot1q
+switchport mode trunk
+
+vlan 120
+name Registration_office
+vlan 130
+name Accounting_Finance
+name Accounting_Finance
+
+hostname Acc4
+
+interface range e0/0-3 , e1/0-3 , e2/0-3 , e3/0-3
+duplex full
+exit
+
+
+interface range e0/1-3 , e1/0-3
+switchport mode access
+switchport access vlan 120
+
+interface range e2/0-3 , e3/0-3
+switchport mode access
+switchport access vlan 130
+
+vtp domain Reges_american.egypt.local
+vtp version 3 
+vtp mode transparent 
+vtp password P@ssw0rd 
+
+
