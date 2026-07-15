@@ -37,3 +37,5 @@ To automate IP allocation and prevent human error, a robust DHCP infrastructure 
 * `/Topologies`: Contains high-resolution diagrams of the multi-site network.
 * `/Configurations`: Backup configuration files for Cisco routers/switches, Cisco ASA, and FortiGate firewalls.
 * `/Monitoring_and_Security`: Scripts and configuration snippets for Zabbix, Splunk, Wazuh, and the Telegram webhook integration.
+
+
