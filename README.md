@@ -1,8 +1,8 @@
 # 🌐 Enterprise Network Infrastructure and Security (ENIS) Project 🛡️
 
 <p align="center">
-  <img src="Photo_of_Project/main-topology.jpeg" alt="ENIS Topology Overview" width="650">
-</p> 
+  <img src="Photo_of_Project/enis-project-logo.jpeg" alt="ENIS Project Logo" width="650">
+</p>
 
 ## 📑 Executive Overview
 This repository hosts the complete design, configuration, and documentation of a highly scalable and secure enterprise network topology. Developed as a final-year graduation project by an Information Technology Graduate from Assiut Technological University, the **ENIS Project** demonstrates a deep understanding of modern networking paradigms. It successfully bridges the gap between complex routing/switching infrastructure and advanced cybersecurity operations, delivering a robust, highly available, and deeply monitored enterprise environment.
